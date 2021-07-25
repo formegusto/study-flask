@@ -65,26 +65,52 @@ def isLast():
 isLast()
 
 
-def mark_bold(func):
-    def _func(text):
-        return func(text)
+# def mark_bold(func):
+#     def _func(text):
+#         return func(text)
 
+#     return _func
+
+
+# def mark_italic(func):
+#     def _func(text):
+#         return func(text)
+
+#     return _func
+def mark_bold(func):
+    def _func(*args, ** kwargs):
+        return "<b>{}</b>".format(func(*args, **kwargs))
     return _func
 
 
 def mark_italic(func):
-    def _func(text):
-        return func(text)
-
+    def _func(*args, ** kwargs):
+        return "<i>{}</i>".format(func(*args, **kwargs))
     return _func
 
 
 print()
 
 
+# @mark_bold
+# def bold(text):
+#     return "<b>{}</>".format(text)
 @mark_bold
 def bold(text):
-    return "<b>{}</>".format(text)
+    return text
+
+
+@mark_italic
+def ilalic(text):
+    return text
+
+
+@mark_bold
+@mark_italic
+def bold_and_ilalic(text):
+    return text
 
 
 print(bold("hello!"))
+print(ilalic("hello!"))
+print(bold_and_ilalic("Hi!!"))
