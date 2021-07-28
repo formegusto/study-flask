@@ -21,10 +21,10 @@
   <body>
       <div id="app">
         <center>
-            <button type="button" class="btn btn-primary" v-on:click="axios_test">GET</button>
-            <button type="button" class="btn btn-secondary">POST</button>
-            <button type="button" class="btn btn-success">PUT</button>
-            <button type="button" class="btn btn-danger">DELETE</button>
+            <button type="button" class="btn btn-primary" v-on:click="get_test">GET</button>
+            <button type="button" class="btn btn-secondary" v-on:click="post_test">POST</button>
+            <button type="button" class="btn btn-success" v-on:click="put_test">PUT</button>
+            <button type="button" class="btn btn-danger" v-on:click="delete_test">DELETE</button>
         </center>
       </div>
     <!-- Optional JavaScript -->
@@ -52,9 +52,51 @@
         const app = new Vue({
             el: "#app",
             methods: {
-                axios_test(){
+                get_test(){
                     axios("http://localhost:8080/test", {
-                        method: "get"
+                        method: "get",
+                        params: {
+                          email: "formegusto@gmail.com"
+                        }
+                    }).then((res) => {
+                        console.log(res)
+                    }).catch((err) => {
+                        console.error(err)
+                    })
+                },
+                post_test(){
+                    axios("http://localhost:8080/test", {
+                        method: "post",
+                        data: {
+                          email: "formegusto@gmail.com"
+                        }
+                    }).then((res) => {
+                        console.log(res)
+                    }).catch((err) => {
+                        console.error(err)
+                    })
+                },
+                put_test(){
+                    axios("http://localhost:8080/test", {
+                        method: "put",
+                        params: {
+                          email: "formegusto@gmail.com"
+                        },
+                        data: {
+                          name: "formegusto"
+                        }
+                    }).then((res) => {
+                        console.log(res)
+                    }).catch((err) => {
+                        console.error(err)
+                    })
+                },
+                delete_test(){
+                    axios("http://localhost:8080/test", {
+                        method: "delete",
+                        params: {
+                          email: "formegusto@gmail.com"
+                        }
                     }).then((res) => {
                         console.log(res)
                     }).catch((err) => {
