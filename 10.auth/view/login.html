@@ -36,6 +36,13 @@
     <link href="/static/style/signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
+  {% if msg %}
+  <script>
+    alert("{{msg}}")
+    history.replaceState({}, null, location.pathname);
+  </script>
+  {% endif %}
+  
     
 <main class="form-signin">
   <form method="post" action="/login">

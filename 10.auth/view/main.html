@@ -7,6 +7,12 @@
     <title>Main Page</title>
 </head>
 <body>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        history.replaceState({}, null, location.pathname);
+    </script>
+    {% endif %}
     <h1>Main</h1>
     {% if email %}
     반가워요. {{email}}님 ☺️
@@ -14,6 +20,10 @@
     <ul>
         <li><a href="/login">Login</a></li>
         <li><a href="/join">Join</a></li>
+        {% if email %}
+            <li><a href="/logout">Logout</a></li>
+        {% endif %}
+        <li><a href="/board">Board</a></li>
     </ul>
 </body>
 </html>

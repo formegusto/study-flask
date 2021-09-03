@@ -1,11 +1,13 @@
 from flask import Flask
 from flask_login import LoginManager
 from routes.not_auth import main_ab
+from routes.auth import board_ab
 from user import User
 import os
 
 app = Flask(__name__, template_folder="view", static_url_path="/static")
 app.register_blueprint(main_ab, url_prefix="/")
+app.register_blueprint(board_ab, url_prefix="/board")
 
 # 1. Config Secret Key
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'

@@ -64,6 +64,6 @@ class User(UserMixin):
 
             db_cursor.execute(sql)
             mysql_db.commit()
-            return User.find(user_email)
+            return (True, User.find(user_email))
         else:
-            return user
+            return (False, user)
