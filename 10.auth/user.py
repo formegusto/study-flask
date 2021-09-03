@@ -45,7 +45,7 @@ class User(UserMixin):
             db_cursor.close()
             return None
         print("Find:{}".format(user))
-        user = User(user_id=[0], user_email=user[1], blog_id=user[2])
+        user = User(user_id=user[0], user_email=user[1], blog_id=user[2])
         db_cursor.close()
         return user
 

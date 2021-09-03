@@ -8,6 +8,9 @@
 </head>
 <body>
     <h1>Main</h1>
+    {% if email %}
+    반가워요. {{email}}님 ☺️
+    {% endif %}
     <ul>
         <li><a href="/login">Login</a></li>
         <li><a href="/join">Join</a></li>
