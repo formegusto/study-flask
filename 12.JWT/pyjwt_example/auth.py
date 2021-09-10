@@ -21,6 +21,23 @@ jwt_fields = Auth.model("JWT", {
 })
 
 
+def check(func):
+    @Auth.doc(responses={401: "Required Authorization"})
+    @Auth.doc(responses={400: "Bad Token"})
+    def _check(*args, **kargs):
+        header = req.headers.get("Authorization")
+        if header == None:
+            return {"message": "Please Login"}, 401
+        try:
+            data = jwt.decode(header, secret, algorithms="HS256")
+        except:
+            return {"message": "Bad Token"}, 400
+
+        return func(*args, **kargs)
+
+    return _check
+
+
 @Auth.route('/register')
 class AuthRegister(Resource):
     @Auth.expect(user_fields_auth)
@@ -42,6 +59,11 @@ class AuthRegister(Resource):
                 }, secret,
                     algorithm="HS256")
             }, 200
+
+
+def get_user():
+    header = req.headers.get("Authorization")
+    return jwt.decode(header, secret, algorithms="HS256")
 
 
 @Auth.route("/login")
@@ -74,14 +96,6 @@ class AuthLogin(Resource):
 @Auth.route("/get")
 class AuthGet(Resource):
     @Auth.response(200, "Success", user_fields)
-    @Auth.doc(responses={404: "Login Failed"})
+    @check
     def get(self):
-        header = req.headers.get("Authorization")
-        if header == None:
-            return {"message": "Please Login"}, 404
-        try:
-            data = jwt.decode(header, secret, algorithms="HS256")
-        except:
-            return {"message": "Bad Token"}, 400
-
-        return data, 200
+        return get_user(), 200
